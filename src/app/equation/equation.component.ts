@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MathValidators } from '../math-validators';
 
@@ -14,7 +14,10 @@ export class EquationComponent implements OnInit {
     a: new FormControl(this.randomNumber()),
     b: new FormControl(this.randomNumber()),
     answer: new FormControl('')
-  });
+  }, [
+    MathValidators.addition('answer', 'a', 'b'),
+  ]
+  );
 
   constructor() { }
 
