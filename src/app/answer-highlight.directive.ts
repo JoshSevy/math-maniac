@@ -14,10 +14,19 @@ export class AnswerHighlightDirective {
 
   ngOnInit() {
     this.controlName.control.parent.valueChanges.pipe(
-      map(({ a, b , answer }) => Math.abs((a + b - answer) / (a + b)))
+      map(({ a, b , answer }) => Math.abs((a + b - answer) / (a + b))),
     ).subscribe((value) => {
-        console.log(value)
-      })
+        if (value === 0) {
+          this.el.nativeElement.classList.add('correct');
+        } else if (value < 0.2) {
+          this.el.nativeElement.classList.add('close');
+          this.el.nativeElement.classList.remove('correct')
+        } else {
+          this.el.nativeElement.classList.remove('close');
+          this.el.nativeElement.classList.remove('correct')
+        }
+      }
+    )
   }
 
 }
